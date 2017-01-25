@@ -532,6 +532,7 @@ public class AddressBook {
      * @return set of keywords as specified by args
      */
     private static Set<String> extractKeywordsFromFindPersonArgs(String findPersonCommandArgs) {
+    	System.out.println("Testing" + findPersonCommandArgs);
         return new HashSet<>(splitByWhitespace(findPersonCommandArgs.trim()));
     }
 
@@ -1064,11 +1065,15 @@ public class AddressBook {
      */
     private static String[] makePersonFromData(String name, String phone, String email) {
         final String[] person = new String[PERSON_DATA_COUNT];
-        person[PERSON_DATA_INDEX_NAME] = name;
-        person[PERSON_DATA_INDEX_PHONE] = phone;
-        person[PERSON_DATA_INDEX_EMAIL] = email;
+        makeSinglePerson(name, phone, email, person);
         return person;
     }
+
+	private static void makeSinglePerson(String name, String phone, String email, final String[] person) {
+		person[PERSON_DATA_INDEX_NAME] = name;
+        person[PERSON_DATA_INDEX_PHONE] = phone;
+        person[PERSON_DATA_INDEX_EMAIL] = email;
+	}
 
     /**
      * Encodes a person into a decodable and readable string representation.
