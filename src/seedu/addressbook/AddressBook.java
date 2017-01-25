@@ -751,14 +751,19 @@ public class AddressBook {
     private static String getDisplayString(ArrayList<String[]> persons) {
         final StringBuilder messageAccumulator = new StringBuilder();
         for (int i = 0; i < persons.size(); i++) {
-            final String[] person = persons.get(i);
-            final int displayIndex = i + DISPLAYED_INDEX_OFFSET;
-            messageAccumulator.append('\t')
-                              .append(getIndexedPersonListElementMessage(displayIndex, person))
-                              .append(LS);
+            getDisplayForEachPerson(persons, messageAccumulator, i);
         }
         return messageAccumulator.toString();
     }
+
+	private static void getDisplayForEachPerson(ArrayList<String[]> persons, final StringBuilder messageAccumulator,
+			int i) {
+		final String[] person = persons.get(i);
+		final int displayIndex = i + DISPLAYED_INDEX_OFFSET;
+		messageAccumulator.append('\t')
+		                  .append(getIndexedPersonListElementMessage(displayIndex, person))
+		                  .append(LS);
+	}
     
     private static String getDisplayString(HashMap<String, HashMap<String, String>> persons) {
     	final StringBuilder messageAccumulator = new StringBuilder();
