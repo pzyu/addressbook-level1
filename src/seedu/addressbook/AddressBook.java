@@ -532,8 +532,8 @@ public class AddressBook {
      * @return set of keywords as specified by args
      */
     private static Set<String> extractKeywordsFromFindPersonArgs(String findPersonCommandArgs) {
-    	System.out.println("Testing" + findPersonCommandArgs);
-        return new HashSet<>(splitByWhitespace(findPersonCommandArgs.trim()));
+//    	System.out.println("Testing" + splitByWhitespaceAndCapitalize(findPersonCommandArgs.trim()));
+        return new HashSet<>(splitByWhitespaceAndLowercase(findPersonCommandArgs.trim()));
     }
 
     /**
@@ -552,7 +552,7 @@ public class AddressBook {
 //            }
 //        }
         for (Entry<String, HashMap<String, String>> person: getAllPersonsInAddressBookHash().entrySet()) {
-        	final Set<String> wordsInName = new HashSet<>(splitByWhitespace(person.getValue().get(PERSON_PROPERTY_NAME)));
+        	final Set<String> wordsInName = new HashSet<>(splitByWhitespace(person.getValue().get(PERSON_PROPERTY_NAME).toLowerCase()));
         	if (!Collections.disjoint((wordsInName), (keywords))) {
         		matchedPersons.put(person.getValue().get(PERSON_PROPERTY_PHONE), person.getValue());
         	}
@@ -1391,6 +1391,17 @@ public class AddressBook {
      */
     private static ArrayList<String> splitByWhitespace(String toSplit) {
         return new ArrayList<>(Arrays.asList(toSplit.trim().split("\\s+")));
+    }
+    
+    private static ArrayList<String> splitByWhitespaceAndLowercase(String toSplit) {
+    	ArrayList<String> toConvert = new ArrayList<>(Arrays.asList(toSplit.trim().split("\\s+")));
+    	System.out.println(toConvert);
+    	
+    	for (int i = 0; i < toConvert.size(); i++) {
+    		toConvert.set(i, toConvert.get(i).substring(0, 1).toLowerCase() + toConvert.get(i).substring(1));
+    	}
+    	
+        return toConvert;
     }
 
 }
